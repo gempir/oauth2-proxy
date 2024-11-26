@@ -52,17 +52,18 @@ type Options struct {
 
 	Providers Providers `cfg:",internal"`
 
-	APIRoutes             []string `flag:"api-route" cfg:"api_routes"`
-	SkipAuthRegex         []string `flag:"skip-auth-regex" cfg:"skip_auth_regex"`
-	SkipAuthRoutes        []string `flag:"skip-auth-route" cfg:"skip_auth_routes"`
-	SkipJwtBearerTokens   bool     `flag:"skip-jwt-bearer-tokens" cfg:"skip_jwt_bearer_tokens"`
-	ExtraJwtIssuers       []string `flag:"extra-jwt-issuers" cfg:"extra_jwt_issuers"`
-	SkipProviderButton    bool     `flag:"skip-provider-button" cfg:"skip_provider_button"`
-	SSLInsecureSkipVerify bool     `flag:"ssl-insecure-skip-verify" cfg:"ssl_insecure_skip_verify"`
-	SkipAuthPreflight     bool     `flag:"skip-auth-preflight" cfg:"skip_auth_preflight"`
-	ForceJSONErrors       bool     `flag:"force-json-errors" cfg:"force_json_errors"`
-	EncodeState           bool     `flag:"encode-state" cfg:"encode_state"`
-	AllowQuerySemicolons  bool     `flag:"allow-query-semicolons" cfg:"allow_query_semicolons"`
+	APIRoutes                     []string `flag:"api-route" cfg:"api_routes"`
+	SkipAuthRegex                 []string `flag:"skip-auth-regex" cfg:"skip_auth_regex"`
+	SkipAuthRoutes                []string `flag:"skip-auth-route" cfg:"skip_auth_routes"`
+	SkipExpiredAccessTokenRefresh bool     `flag:"skip-expired-access-token-refresh" cfg:"skip_expired_access_token_refresh"`
+	SkipJwtBearerTokens           bool     `flag:"skip-jwt-bearer-tokens" cfg:"skip_jwt_bearer_tokens"`
+	ExtraJwtIssuers               []string `flag:"extra-jwt-issuers" cfg:"extra_jwt_issuers"`
+	SkipProviderButton            bool     `flag:"skip-provider-button" cfg:"skip_provider_button"`
+	SSLInsecureSkipVerify         bool     `flag:"ssl-insecure-skip-verify" cfg:"ssl_insecure_skip_verify"`
+	SkipAuthPreflight             bool     `flag:"skip-auth-preflight" cfg:"skip_auth_preflight"`
+	ForceJSONErrors               bool     `flag:"force-json-errors" cfg:"force_json_errors"`
+	EncodeState                   bool     `flag:"encode-state" cfg:"encode_state"`
+	AllowQuerySemicolons          bool     `flag:"allow-query-semicolons" cfg:"allow_query_semicolons"`
 
 	SignatureKey    string `flag:"signature-key" cfg:"signature_key"`
 	GCPHealthChecks bool   `flag:"gcp-healthchecks" cfg:"gcp_healthchecks"`
