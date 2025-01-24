@@ -16,8 +16,8 @@ type verboseTransport struct {
 
 func (t *verboseTransport) RoundTrip(req *http.Request) (*http.Response, error) {
 	// Log request details
-	t.logger.Printf("Sending request: Method=%s, URL=%s, UserAgent=%s",
-		req.Method, req.URL.String(), req.Header.Get("User-Agent"))
+	t.logger.Printf("Sending request: Method=%s, URL=%s",
+		req.Method, req.URL.String())
 
 	// Clone the request to avoid modifying the original
 	r := req.Clone(req.Context())
@@ -33,10 +33,8 @@ func (t *verboseTransport) RoundTrip(req *http.Request) (*http.Response, error) 
 		return nil, err
 	}
 
-	if resp.StatusCode >= 400 {
-		t.logger.Printf("HTTP Error: Status=%d, Method=%s, URL=%s",
-			resp.StatusCode, r.Method, r.URL.String())
-	}
+	t.logger.Printf("Request finished: Status=%d, Method=%s, URL=%s",
+		resp.StatusCode, r.Method, r.URL.String())
 
 	return resp, nil
 }
