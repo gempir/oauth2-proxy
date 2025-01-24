@@ -25,9 +25,8 @@ func (s *serverGroup) Start(ctx context.Context) error {
 	g, groupCtx := errgroup.WithContext(ctx)
 
 	for _, server := range s.servers {
-		srv := server
 		g.Go(func() error {
-			return srv.Start(groupCtx)
+			return server.Start(groupCtx)
 		})
 	}
 
