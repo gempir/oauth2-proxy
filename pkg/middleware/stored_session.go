@@ -157,7 +157,10 @@ func (s *storedSessionLoader) refreshSessionIfNeeded(rw http.ResponseWriter, req
 		if session == nil {
 			return
 		}
-		if err := session.ReleaseLock(req.Context()); err != nil {
+		if !lockObtained {
+			return
+		}
+		if err := session.ReleaseLock(context.Background()); err != nil {
 			logger.Errorf("unable to release lock: %v", err)
 		}
 	}()
