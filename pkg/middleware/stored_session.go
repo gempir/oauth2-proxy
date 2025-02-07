@@ -134,12 +134,14 @@ func (s *storedSessionLoader) refreshSessionIfNeeded(rw http.ResponseWriter, req
 	ctx, cancel := context.WithTimeout(context.Background(), sessionRefreshObtainTimeout)
 	defer cancel()
 
+	lockContext := context.Background()
+
 	for !lockObtained {
 		select {
 		case <-ctx.Done():
 			return errors.New("timeout obtaining session lock")
 		default:
-			err := session.ObtainLock(req.Context(), sessionRefreshLockDuration)
+			err := session.ObtainLock(lockContext, sessionRefreshLockDuration)
 			if err != nil && !errors.Is(err, sessionsapi.ErrLockNotObtained) {
 				return fmt.Errorf("error occurred while trying to obtain lock: %v", err)
 			} else if errors.Is(err, sessionsapi.ErrLockNotObtained) {
@@ -160,7 +162,7 @@ func (s *storedSessionLoader) refreshSessionIfNeeded(rw http.ResponseWriter, req
 		if !lockObtained {
 			return
 		}
-		if err := session.ReleaseLock(context.Background()); err != nil {
+		if err := session.ReleaseLock(lockContext); err != nil {
 			logger.Errorf("unable to release lock: %v", err)
 		}
 	}()
